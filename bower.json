@@ -1,0 +1,24 @@
+{
+  "name": "viola-configurator",
+  "version": "0.0.0",
+  "homepage": "https://github.com/antirek/viola-configurator",
+  "authors": [
+    "k666r <k666r6@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.7",
+    "angular-resource": "~1.4.7",
+    "angular-route": "~1.4.7",
+    "angular-ui-router": "~0.2.15",
+    "jquery": "~2.1.4",
+    "bootstrap": "~3.3.5"
+  }
+}

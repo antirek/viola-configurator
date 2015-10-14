@@ -1,0 +1,49 @@
+doctype html
+html(lang='ru')
+    head
+        title Viola configurator
+        link(rel='stylesheet', href='/bower_components/bootstrap/dist/css/bootstrap.min.css')
+        script(src='/bower_components/jquery/dist/jquery.min.js')
+        script(src='/bower_components/bootstrap/dist/js/bootstrap.min.js')
+        script(src='/bower_components/angular/angular.min.js')
+        script(src='/bower_components/angular-route/angular-route.min.js')
+        script(src='/bower_components/angular-resource/angular-resource.min.js')
+        script(src='/bower_components/angular-ui-router/release/angular-ui-router.min.js')
+        script(src='/public/js/viola_config.min.js')
+    body(ng-app="viola")
+        nav.navbar.navbar-inverse
+            a.navbar-brand(href='/') Viola Configurator
+        .container
+            .row
+                .col-md-2(ui-view="menu")
+                    .list-group
+                        a.list-group-item(ng-repeat="model in models" ui-sref="main.list({modelname:model})" ui-sref-active="active") {{model}}
+                            i.glyphicon.glyphicon-chevron-right.pull-right
+                div(ui-view="list")
+                    .col-md-2(ng-show="modelName")
+                        a.btn.btn-success(ui-sref="main.model({modelname:modelName})")
+                            | Добавить
+                            span.glyphicon.glyphicon-plus-sign
+                        hr
+                        .list-group
+                            a.list-group-item(ng-repeat="model in models" ui-sref="main.model({modelname:modelName,id:model._id})" ui-sref-active="active") {{model.name}}
+                                i.glyphicon.glyphicon-chevron-right.pull-right
+                div(ui-view="data")
+                    .col-md-10(ng-show="model")
+                        h4(ng-if="!new") {{modelName}}
+                        h4(ng-if="new") new {{modelName}}
+                        form.form.form-horizontal
+                            .form-group(ng-repeat="attribute in attributes")
+                                label.col-sm-3.control-label(for="{{attribute}}" ) {{attribute}}
+                                .col-sm-7
+                                    input.form-control(
+                                    id="{{attribute}}"
+                                    name="{{attribute}}"
+                                    type="text"
+                                    placeholder="Input {{attribute}}"
+                                    ng-model="model[attribute]"
+                                    )
+                            a.btn.btn-primary.col-sm-offset-3(ng-click="save()") Save
+                            a.btn.btn-danger(ng-show="!new" ng-click="delete()") delete
+
+
