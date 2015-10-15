@@ -1,12 +1,19 @@
 angular.module 'viola'
-.factory 'Models', ['SipConfigs', 'Extensions', (SipConfigs, Extensions)->
-  sip_configs: SipConfigs
-  extensions: Extensions
-  getModels: ()->
-    ['sip_configs', 'extensions']
-  getModelsAttributes: (modelName)->
-    attributes =
-      sip_configs:['name','secret']
-      extensions:['name','target']
-    attributes[modelName]
+.factory 'Models', ['$resource', ($resource)->
+  modelsMap = JSON.parse '{{modelsMap}}'
+  models =
+    getModels: ()->
+      result = []
+      for key of modelsMap
+        result.push modelsMap[key].name
+      result
+    getModelAttributes: (modelName)->
+      result = {}
+      for key of modelsMap
+        result[modelsMap[key].name] = modelsMap[key].attributes
+      result[modelName]
+  for key of modelsMap
+    model = modelsMap[key]
+    models[model.name] = $resource "/#{model.url}/:id", id: '@_id'
+  models
 ]

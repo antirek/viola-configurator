@@ -10,8 +10,10 @@ app.set 'view engine', 'jade'
 app.use '/bower_components', express.static "bower_components"
 app.use '/public', express.static "public"
 
-app.use '/extensions', mongooseRouter models.extensions
-app.use '/sipConfigs', mongooseRouter models.sipConfigs
+modelsMap = models.getModelsMap()
+for key of modelsMap
+  model = modelsMap[key]
+  app.use '/' + model.url, mongooseRouter models[model.name]
 
 app.get '/', (req, res)->
   res.render 'index'

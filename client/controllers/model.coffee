@@ -9,7 +9,7 @@ angular.module 'viola'
     if !$scope.modelName
       $state.go 'main', {}, reload: true
     id = $stateParams.id
-    $scope.attributes = Models.getModelsAttributes($scope.modelName)
+    $scope.attributes = Models.getModelAttributes($scope.modelName)
     if id
       $scope.new = false
       $scope.model = Models[$scope.modelName].get id: id

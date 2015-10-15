@@ -18,6 +18,7 @@
   "homepage": "https://github.com/antirek/viola-configurator#readme",
   "dependencies": {
     "express": "^4.13.3",
+    "gulp-token-replace": "^1.0.2",
     "jade": "^1.11.0",
     "mongoose": "^4.1.11",
     "mongoose-router": "0.0.2"
