@@ -3,3 +3,4 @@ module.exports =
   extension: String
   device: String
   mobile: String
+  record: String
