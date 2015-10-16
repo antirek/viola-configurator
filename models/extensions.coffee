@@ -1,3 +1,5 @@
 module.exports =
   name: String
-  target: String
+  extension: String
+  device: String
+  mobile: String
