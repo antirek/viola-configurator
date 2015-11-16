@@ -1,5 +1,6 @@
 express = require 'express'
 mongooseRouter = require 'mongoose-router'
+mapper = require './confMapper'
 
 models = require './models'
 
@@ -17,5 +18,16 @@ for key of modelsMap
 
 app.get '/', (req, res)->
   res.render 'index'
+
+app.get '/config/save', (req, res)->
+  models.SipConfigs.find (err, configs)->
+    mapper.map configs, (config)->
+      name: config.name
+      secret: config.secret
+    , '/var/asterisk/sip_2.conf', (err)->
+      if err
+        res.send 500
+      else
+        res.send 200
 
 app.listen 3000

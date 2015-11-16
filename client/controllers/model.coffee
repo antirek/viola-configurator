@@ -15,7 +15,7 @@ angular.module 'viola'
       $scope.model = Models[$scope.modelName].get id: id
     else
       $scope.new = true
-      $scope.model = new Models[$scope.modelName] $scope.attributes
+      $scope.model = new Models[$scope.modelName]
 
     $scope.save = ()->
       $scope.model.$save ()->

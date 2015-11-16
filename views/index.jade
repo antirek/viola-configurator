@@ -19,6 +19,8 @@ html(lang='ru')
                     .list-group
                         a.list-group-item(ng-repeat="model in models" ui-sref="main.list({modelname:model})" ui-sref-active="active") {{model}}
                             i.glyphicon.glyphicon-chevron-right.pull-right
+                    a.btn.btn-success(ng-click="saveConfig()") Write conf file
+                    p {{message}}
                 div(ui-view="list")
                     .col-md-2(ng-show="modelName")
                         a.btn.btn-success(ui-sref="main.model({modelname:modelName})")
