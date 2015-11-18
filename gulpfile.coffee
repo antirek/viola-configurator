@@ -10,8 +10,7 @@ gulp.task 'server', ()->
   .pipe gulp.dest './'
 
 gulp.task 'client', ['server'], ()->
-  models = require './models'
-  models.disconnect()
+  models = require './models/config'
   gulp.src ['client/**/*.coffee']
   .pipe replace global: modelsMap: JSON.stringify (models.getModelsMap())
   .pipe coffee bare: true
