@@ -24,7 +24,7 @@ app.get '/config/save', (req, res)->
     mapper.map configs, (config)->
       name: config.name
       secret: config.secret
-    , '/var/asterisk/sip_2.conf', (err)->
+    , '/etc/asterisk/sip_2.conf', (err)->
       if err
         res.send 500
       else
