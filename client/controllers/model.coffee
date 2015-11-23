@@ -32,10 +32,12 @@ angular.module 'viola'
     $scope.addRow = (attribute, object)->
       if  !$scope.model[attribute]
         $scope.model[attribute] = []
-      addedObject={}
+      addedObject = {}
       for key of  $scope.getObjectkeys(object)
-        addedObject[$scope.getObjectkeys(object)[key]]=''
+        addedObject[$scope.getObjectkeys(object)[key]] = ''
       $scope.model[attribute].push(addedObject)
-
+      
+    $scope.delRow = (attribute, index)->
+      $scope.model[attribute].splice(index, 1)
 
 ]

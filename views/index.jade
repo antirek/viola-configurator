@@ -56,6 +56,7 @@ html(lang='ru')
                                                 ng-model="row[field]"
                                                 placeholder="input {{field}}"
                                                 )
+                                            a.btn.btn-danger(ng-click="delRow(attribute.name,$index)") Del
                             a.btn.btn-primary.col-sm-offset-3(ng-click="save()") Save
                             a.btn.btn-danger(ng-show="!new" ng-click="delete()") delete
 
