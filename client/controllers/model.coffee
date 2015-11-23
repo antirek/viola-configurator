@@ -24,4 +24,18 @@ angular.module 'viola'
     $scope.delete = ()->
       $scope.model.$delete ()->
         $state.go 'main.list', {modelname: $scope.modelName}, reload: true
+
+    $scope.getObjectkeys = (object)->
+      Object.keys(object).filter (value)->
+        value != '$$hashKey'
+
+    $scope.addRow = (attribute, object)->
+      if  !$scope.model[attribute]
+        $scope.model[attribute] = []
+      addedObject={}
+      for key of  $scope.getObjectkeys(object)
+        addedObject[$scope.getObjectkeys(object)[key]]=''
+      $scope.model[attribute].push(addedObject)
+
+
 ]

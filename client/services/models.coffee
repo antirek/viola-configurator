@@ -1,6 +1,7 @@
 angular.module 'viola'
 .factory 'Models', ['$resource', ($resource)->
   modelsMap = JSON.parse '{{modelsMap}}'
+  console.log modelsMap
   models =
     getModels: ()->
       result = []

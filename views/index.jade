@@ -36,15 +36,26 @@ html(lang='ru')
                         h4(ng-if="new") new {{modelName}}
                         form.form.form-horizontal
                             .form-group(ng-repeat="attribute in attributes")
-                                label.col-sm-3.control-label(for="{{attribute}}" ) {{attribute}}
-                                .col-sm-7
-                                    input.form-control(
-                                    id="{{attribute}}"
-                                    name="{{attribute}}"
-                                    type="text"
-                                    placeholder="Input {{attribute}}"
-                                    ng-model="model[attribute]"
-                                    )
+                                div(ng-if="!attribute.value")
+                                    label.col-sm-3.control-label(for="{{attribute.name}}" ) {{attribute.name}}
+                                    .col-sm-7
+                                        input.form-control(
+                                        id="{{attribute.name}}"
+                                        name="{{attribute.name}}"
+                                        type="text"
+                                        placeholder="Input {{attribute.name}}"
+                                        ng-model="model[attribute.name]"
+                                        )
+                                div(ng-if="attribute.value")
+                                    div(ng-if="attribute.value[0]")
+                                        h3 {{attribute.name}}
+                                        a.btn.btn-default(ng-click="addRow(attribute.name,attribute.value[0])") add
+                                        div.col-sm-12(ng-repeat="row in model[attribute.name]")
+                                            div.col-sm-3(ng-repeat="field in getObjectkeys(attribute.value[0])")
+                                                input(
+                                                ng-model="row[field]"
+                                                placeholder="input {{field}}"
+                                                )
                             a.btn.btn-primary.col-sm-offset-3(ng-click="save()") Save
                             a.btn.btn-danger(ng-show="!new" ng-click="delete()") delete
 
