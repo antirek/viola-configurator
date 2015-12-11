@@ -1,6 +1,6 @@
-sipConfigs = require './sipConfigs'
 extensions = require './extensions'
 ivrs = require './ivrs'
+
 getAttributes = (configObject)->
   result = []
   for field of configObject
@@ -28,11 +28,6 @@ getAttributes = (configObject)->
 module.exports =
   getModelsMap: ()->
     [
-      name: 'SipConfigs'
-      url: 'sipConfigs'
-      title: 'sipConfigs'
-      attributes: getAttributes(sipConfigs)
-    ,
       name: 'Extensions'
       url: 'extensions'
       title: 'extensions'

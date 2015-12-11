@@ -1,6 +1,8 @@
 module.exports =
   name: String
   extension: String
-  device: String
   mobile: String
   record: String
+  peername: String
+  secret: String
+  
