@@ -28,9 +28,9 @@ getAttributes = (configObject)->
 module.exports =
   getModelsMap: ()->
     [
-      name: 'Extensions'
-      url: 'extensions'
-      title: 'extensions'
+      name: 'Users'
+      url: 'users'
+      title: 'users'
       attributes: getAttributes(extensions)
     ,
       name: 'Ivrs'
