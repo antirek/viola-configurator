@@ -1,5 +1,6 @@
 users = require './users'
 ivrs = require './ivrs'
+queues = require './queues'
 
 getAttributes = (configObject)->
   result = []
@@ -32,6 +33,11 @@ module.exports =
       url: 'users'
       title: 'users'
       attributes: getAttributes(users)
+    ,
+      name: 'Queues'
+      url: 'queues'
+      title: 'queues'
+      attributes: getAttributes(queues)
     ,
       name: 'Ivrs'
       url: 'ivrs'
