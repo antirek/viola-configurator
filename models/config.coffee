@@ -1,4 +1,4 @@
-extensions = require './extensions'
+users = require './users'
 ivrs = require './ivrs'
 
 getAttributes = (configObject)->
@@ -31,7 +31,7 @@ module.exports =
       name: 'Users'
       url: 'users'
       title: 'users'
-      attributes: getAttributes(extensions)
+      attributes: getAttributes(users)
     ,
       name: 'Ivrs'
       url: 'ivrs'
