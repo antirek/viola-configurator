@@ -20,9 +20,9 @@ app.get '/', (req, res)->
   res.render 'index'
 
 app.get '/config/save', (req, res)->
-  models.SipConfigs.find (err, configs)->
+  models.Users.find (err, configs)->
     mapper.map configs, (config)->
-      name: config.name
+      name: config.peername
       secret: config.secret
     , '/etc/asterisk/sip_2.conf', (err)->
       if err
