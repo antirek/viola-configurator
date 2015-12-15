@@ -24,7 +24,11 @@ app.get '/config/save', (req, res)->
     mapper.map configs, (config)->
       name: config.peername
       secret: config.secret
-    , '/etc/asterisk/sip_2.conf', (err)->
+      type: config.type
+      context: config.context
+      host: config.host
+      qualify: config.qualify
+    , '/etc/asterisk/sip_viola_configurator.conf', (err)->
       if err
         res.send 500
       else
