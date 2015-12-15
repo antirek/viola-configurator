@@ -1,5 +1,5 @@
 module.exports =
-  title: String
+  name: String
   extension: String
   mobile: String
   record: String
