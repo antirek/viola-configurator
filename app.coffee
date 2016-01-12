@@ -1,9 +1,11 @@
 express = require 'express'
 mongooseRouter = require 'mongoose-router'
+multipart = require 'connect-multiparty'
+child_process = require 'child_process'
 mapper = require './confMapper'
 
 models = require './models'
-
+config = require './config'
 app = express()
 
 app.set 'views', "views"
@@ -19,6 +21,9 @@ for key of modelsMap
 app.get '/', (req, res)->
   res.render 'index'
 
+app.get '/parts/:name', (req, res)->
+  res.render "parts/#{req.params.name}"
+
 app.get '/config/save', (req, res)->
   models.Users.find (err, configs)->
     mapper.map configs, (config)->
@@ -33,5 +38,14 @@ app.get '/config/save', (req, res)->
         res.send 500
       else
         res.send 200
+
+app.post '/files/save', multipart(), (req, res)->
+  name = req.body.name
+  fname = req.files.file.name
+  ext = fname.split('.')[1]
+  fpath = req.files.file.path
+  path = "#{config.filePath}/#{name}.#{ext}"
+  child_process.exec("mv #{fpath} #{path}")
+  res.redirect('/')
 
 app.listen 3000

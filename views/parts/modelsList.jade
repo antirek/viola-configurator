@@ -1,0 +1,8 @@
+.col-md-2(ng-show="modelName")
+    a.btn.btn-success(ui-sref="main.models.new({modelname:modelName})")
+        | Добавить
+        span.glyphicon.glyphicon-plus-sign
+    hr
+    .list-group
+        a.list-group-item(ng-repeat="model in models" ui-sref="main.models.view({modelname:modelName,id:model._id})" ui-sref-active="active") {{model.name}}
+            i.glyphicon.glyphicon-chevron-right.pull-right

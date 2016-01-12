@@ -1,0 +1,30 @@
+.col-md-10
+    h3 Upload File
+    form.form.form-horizontal(
+    method="post"
+    enctype="multipart/form-data"
+    action="/files/save"
+    name="FileForm"
+    )
+        .form-group(ng-class="{'has-error':FileForm.name.$invalid}" )
+            label.col-sm-3.control-label(for="name" ) Name
+            .col-sm-7
+                input.form-control(
+                id="name"
+                name="name"
+                type="text"
+                placeholder="Input name"
+                ng-model="name"
+                required
+                )
+        .form-group(ng-class="{'has-error':FileForm.file.$invalid}" )
+            label.col-sm-3.control-label(for="file" ) File
+            .col-sm-7
+                input.form-control(
+                id="file"
+                name="file"
+                type="file"
+                ng-model="file"
+                )
+
+        button.btn.btn-primary.col-md-offset-3(ng-disabled="FileForm.$invalid") Save

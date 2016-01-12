@@ -19,11 +19,11 @@ angular.module 'viola'
 
     $scope.save = ()->
       $scope.model.$save ()->
-        $state.go 'main.list', {modelname: $scope.modelName}, reload: true
+        $state.go 'main.models', {modelname: $scope.modelName}, reload: true
 
     $scope.delete = ()->
       $scope.model.$delete ()->
-        $state.go 'main.list', {modelname: $scope.modelName}, reload: true
+        $state.go 'main.models', {modelname: $scope.modelName}, reload: true
 
     $scope.getObjectkeys = (object)->
       Object.keys(object).filter (value)->
@@ -36,7 +36,7 @@ angular.module 'viola'
       for key of  $scope.getObjectkeys(object)
         addedObject[$scope.getObjectkeys(object)[key]] = ''
       $scope.model[attribute].push(addedObject)
-      
+
     $scope.delRow = (attribute, index)->
       $scope.model[attribute].splice(index, 1)
 
