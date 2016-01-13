@@ -18,6 +18,7 @@
   "homepage": "https://github.com/antirek/viola-configurator#readme",
   "dependencies": {
     "astconf": "0.0.4",
+    "connect-multiparty": "^2.0.0",
     "express": "^4.13.3",
     "gulp-token-replace": "^1.0.2",
     "jade": "^1.11.0",
