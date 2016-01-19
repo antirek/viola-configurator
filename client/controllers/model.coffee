@@ -6,6 +6,9 @@ angular.module 'viola'
   'Models',
   ($scope, $state, $stateParams, Models)->
     $scope.modelName = $stateParams.modelname
+
+    $scope.forarding = []
+
     if !$scope.modelName
       $state.go 'main', {}, reload: true
     id = $stateParams.id
@@ -16,6 +19,24 @@ angular.module 'viola'
     else
       $scope.new = true
       $scope.model = new Models[$scope.modelName]
+
+    ModelsList = Models.getModels()
+    for key of ModelsList
+      getModels = (ModelName)->
+        Models[ModelName].query (models)->
+          i = 0
+          while i < models.length
+            model = models[i]
+            $scope.forarding.push
+              name: model.name
+              extension: model.extension
+              model: ModelName
+              title: "#{ModelName}:#{model.name}(#{model.extension})"
+            i++
+      getModels ModelsList[key]
+
+    $scope.isAttributeForwarding = (attributeName)->
+      Models.isAttributeForwarding $scope.modelName, attributeName.name
 
     $scope.save = ()->
       $scope.model.$save ()->
@@ -39,5 +60,6 @@ angular.module 'viola'
 
     $scope.delRow = (attribute, index)->
       $scope.model[attribute].splice(index, 1)
+
 
 ]

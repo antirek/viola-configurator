@@ -33,14 +33,17 @@ module.exports =
       url: 'users'
       title: 'users'
       attributes: getAttributes(users)
+      forwardings:['fwd']
     ,
       name: 'Queues'
       url: 'queues'
       title: 'queues'
       attributes: getAttributes(queues)
+      forwardings:[]
     ,
       name: 'Ivrs'
       url: 'ivrs'
       title: 'ivrs'
       attributes: getAttributes(ivrs)
+      forwardings:[]
     ]
