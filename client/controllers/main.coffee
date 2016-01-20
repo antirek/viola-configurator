@@ -21,4 +21,8 @@ angular.module 'viola'
           $scope.message = ''
           $scope.$apply()
         , 5000
+    $scope.sipReload = ()->
+      $http.get '/sip/reload'
+      .then ()->
+        console.log 'request send'
 ]

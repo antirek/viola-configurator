@@ -3,9 +3,15 @@ mongooseRouter = require 'mongoose-router'
 multipart = require 'connect-multiparty'
 child_process = require 'child_process'
 mapper = require './confMapper'
+AsteriskManager = require 'asterisk-manager'
 
 models = require './models'
 config = require './config'
+
+ami = new AsteriskManager config.ami.port, config.ami.host, config.ami.username, config.ami.password
+ami.keepConnected()
+ami.on 'error', console.log
+
 app = express()
 
 app.set 'views', "views"
@@ -47,5 +53,15 @@ app.post '/files/save', multipart(), (req, res)->
   path = "#{config.filePath}/#{name}.#{ext}"
   child_process.exec("mv #{fpath} #{path}")
   res.redirect('/')
+
+app.get '/sip/reload', (req, res)->
+  ami.action
+    action: 'command'
+    command: 'sip reload'
+  , (err, res)->
+    console.log err if err
+    console.log res if res
+
+  res.send 200
 
 app.listen 3000
