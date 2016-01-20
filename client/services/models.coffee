@@ -13,10 +13,10 @@ angular.module 'viola'
       for key of modelsMap
         result[modelsMap[key].name] = modelsMap[key].attributes
       result[modelName]
-    isAttributeForwarding : (modelName,attributeName)->
+    isAttributeForwarding: (modelName, attributeName)->
       for key of modelsMap
         model = modelsMap[key]
-        if model.name = modelName
+        if model.name is modelName
           return model.forwardings.indexOf(attributeName) != -1
       return false
   for key of modelsMap
