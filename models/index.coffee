@@ -1,6 +1,7 @@
 mongoose = require 'mongoose'
 Schema = mongoose.Schema
-db = mongoose.createConnection 'mongodb://localhost/viola'
+config = require '../config'
+db = mongoose.createConnection config.mongodb
 
 users = require './users'
 ivrs = require './ivrs'

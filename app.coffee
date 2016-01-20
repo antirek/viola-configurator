@@ -40,7 +40,7 @@ app.get '/config/save', (req, res)->
       context: config.context
       host: config.host
       qualify: config.qualify
-    , '/etc/asterisk/sip_viola_configurator.conf', (err)->
+    , config.sipConf, (err)->
       if err
         res.send 500
       else
@@ -65,4 +65,4 @@ app.get '/sip/reload', (req, res)->
 
   res.send 200
 
-app.listen 3000
+app.listen config.port
