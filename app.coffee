@@ -10,7 +10,8 @@ config = require './config'
 
 ami = new AsteriskManager config.ami.port, config.ami.host, config.ami.username, config.ami.password
 ami.keepConnected()
-ami.on 'error', console.log
+if config.ami.debug
+  ami.on 'error', console.log
 
 app = express()
 

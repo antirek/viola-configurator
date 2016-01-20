@@ -5,3 +5,4 @@ module.exports =
     host: 'localhost'
     username: 'amiadmin'
     password: 'kug09han'
+    debug: false
