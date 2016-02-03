@@ -4,71 +4,84 @@ multipart = require 'connect-multiparty'
 child_process = require 'child_process'
 mapper = require './confMapper'
 AsteriskManager = require 'asterisk-manager'
-
+Joi = require 'joi'
+ConfigSchema = require './lib/configSchema'
 Models = require './models'
 
 app = (config)->
-    
-    console.log config
 
-    ami = new AsteriskManager config.ami.port, config.ami.host, config.ami.username, config.ami.password
-    ami.keepConnected()
-    if config.ami.debug
-      ami.on 'error', console.log
+    console.log 'start with config:', config
 
-    app = express()
+    prepare = () ->
+      ami = new AsteriskManager config.ami.port, config.ami.host, config.ami.username, config.ami.password
+      ami.keepConnected()
+      if config.ami.debug
+        ami.on 'error', console.log
 
-    app.set 'views', "views"
-    app.set 'view engine', 'jade'
-    app.use '/bower_components', express.static "bower_components"
-    app.use '/public', express.static "public"
+      app = express()
 
-    models = new Models config 
+      app.set 'views', "views"
+      app.set 'view engine', 'jade'
+      app.use '/bower_components', express.static "bower_components"
+      app.use '/public', express.static "public"
 
-    modelsMap = models.getModelsMap()
-    for key of modelsMap
-      model = modelsMap[key]
-      app.use '/' + model.url, mongooseRouter models[model.name]
+      models = new Models config 
 
-    app.get '/', (req, res)->
-      res.render 'index'
+      modelsMap = models.getModelsMap()
 
-    app.get '/parts/:name', (req, res)->
-      res.render "parts/#{req.params.name}"
+      for key of modelsMap
+        model = modelsMap[key]
+        app.use '/' + model.url, mongooseRouter models[model.name]
 
-    app.get '/config/save', (req, res)->
-      models.Users.find (err, configs)->
-        mapper.map configs, (config)->
-          name: config.peername
-          secret: config.secret
-          type: config.type
-          context: config.context
-          host: config.host
-          qualify: config.qualify
-        , config.sipConf, (err)->
-          if err
-            res.send 500
-          else
-            res.send 200
+      app.get '/', (req, res)->
+        res.render 'index'
 
-    app.post '/files/save', multipart(), (req, res)->
-      name = req.body.name
-      fname = req.files.file.name
-      ext = fname.split('.')[1]
-      fpath = req.files.file.path
-      path = "#{config.filePath}/#{name}.#{ext}"
-      child_process.exec("mv #{fpath} #{path}")
-      res.redirect('/')
+      app.get '/parts/:name', (req, res)->
+        res.render "parts/#{req.params.name}"
 
-    app.get '/sip/reload', (req, res)->
-      ami.action
-        action: 'command'
-        command: 'sip reload'
-      , (err, res)->
-        console.log err if err
-        console.log res if res
+      app.get '/config/save', (req, res)->
+        models.Users.find (err, configs)->
+          mapper.map configs, (config)->
+            name: config.peername
+            secret: config.secret
+            type: config.type
+            context: config.context
+            host: config.host
+            qualify: config.qualify
+          , config.sipConf, (err)->
+            if err
+              res.send 500
+            else
+              res.send 200
 
-      res.send 200
+      app.post '/files/save', multipart(), (req, res)->
+        name = req.body.name
+        fname = req.files.file.name
+        ext = fname.split('.')[1]
+        fpath = req.files.file.path
+        path = "#{config.filePath}/#{name}.#{ext}"
+        child_process.exec("mv #{fpath} #{path}")
+        res.redirect('/')
+
+      app.get '/sip/reload', (req, res)->
+        ami.action
+          action: 'command'
+          command: 'sip reload'
+        , (err, res)->
+          console.log err if err
+          console.log res if res
+
+        res.send 200
+
+    validate = (callback) ->
+      Joi.validate(config, ConfigSchema, callback)
+
+    validate (err)->
+      if (err)
+        console.log err
+      else 
+        prepare()
+
 
     start = () ->
       app.listen config.port
