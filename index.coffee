@@ -5,7 +5,7 @@ child_process = require 'child_process'
 mapper = require './confMapper'
 AsteriskManager = require 'asterisk-manager'
 
-models = require './models'
+Models = require './models'
 
 app = (config)->
     
@@ -22,6 +22,8 @@ app = (config)->
     app.set 'view engine', 'jade'
     app.use '/bower_components', express.static "bower_components"
     app.use '/public', express.static "public"
+
+    models = new Models config 
 
     modelsMap = models.getModelsMap()
     for key of modelsMap
