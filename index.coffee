@@ -8,6 +8,8 @@ AsteriskManager = require 'asterisk-manager'
 models = require './models'
 
 app = (config)->
+    
+    console.log config
 
     ami = new AsteriskManager config.ami.port, config.ami.host, config.ami.username, config.ami.password
     ami.keepConnected()
