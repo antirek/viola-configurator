@@ -6,6 +6,6 @@ module.exports =
   ami:
     port: 5038
     host: 'localhost'
-    username: 'amiadmin'
-    password: 'kug09han'
+    username: 'admin'
+    password: 'admin'
     debug: false

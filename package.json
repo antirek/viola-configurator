@@ -21,8 +21,10 @@
     "asterisk-manager": "^0.1.15",
     "connect-multiparty": "^2.0.0",
     "express": "^4.13.3",
+    "file-exists": "^1.0.0",
     "gulp-token-replace": "^1.0.2",
     "jade": "^1.11.0",
+    "joi": "^7.2.3",
     "mongoose": "^4.1.11",
     "mongoose-router": "0.0.2"
   },
