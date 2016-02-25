@@ -10,9 +10,9 @@ models = (conf) ->
   queues = require './queues'
   config = require './config'
 
-  Users: db.model 'users', new Schema users
-  Queues: db.model 'queues', new Schema queues
-  Ivrs: db.model 'ivrs', new Schema ivrs
+  Users: db.model 'peer', new Schema users, collection: 'peer'
+  Queues: db.model 'queue', new Schema queues, collection: 'queue'
+  Ivrs: db.model 'ivr', new Schema ivrs, collection: 'ivr'
   disconnect: ()->
     mongoose.disconnect (err)->
       console.log err if err
