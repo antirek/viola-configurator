@@ -2,48 +2,23 @@ users = require './users'
 ivrs = require './ivrs'
 queues = require './queues'
 
-getAttributes = (configObject)->
-  result = []
-  for field of configObject
-    value = configObject[field]
-    if typeof value is 'string' or typeof value is 'function'
-      result.push
-        name: field
-        value: ''
-
-    else if typeof value is 'array' or typeof value is 'object'
-      arrres = {}
-      object = value
-      if value[0]
-        object = value[0]
-      for key of object
-        arrres[key] = ''
-      result.push
-        name: field
-        value: [arrres]
-    else
-      console.log 'field is nothing'
-  result
-
-
 module.exports =
   getModelsMap: ()->
-    [
+    Users:
       name: 'Users'
       url: 'users'
       title: 'users'
-      attributes: getAttributes(users)
-      forwardings:['fwd']
-    ,
+      schema: users.schema
+      form: users.form
+    Queues:
       name: 'Queues'
       url: 'queues'
       title: 'queues'
-      attributes: getAttributes(queues)
-      forwardings:[]
-    ,
+      schema: queues.schema
+      form: queues.form
+    Ivrs:
       name: 'Ivrs'
       url: 'ivrs'
       title: 'ivrs'
-      attributes: getAttributes(ivrs)
-      forwardings:[]
-    ]
+      schema: ivrs.schema
+      form: ivrs.form

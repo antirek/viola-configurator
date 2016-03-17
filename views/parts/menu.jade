@@ -1,5 +1,5 @@
 .list-group
-    a.list-group-item(ng-repeat="model in models" ui-sref="main.models({modelname:model})" ui-sref-active="active") {{model}}
+    a.list-group-item(ng-repeat="model in models" ui-sref="main.models({modelname:model.name})" ui-sref-active="active") {{model.name}}
         i.glyphicon.glyphicon-chevron-right.pull-right
 a.btn.btn-success.col-md-12(ng-click="saveConfig()") Write conf file
 a.btn.btn-danger.col-md-12(ng-click="sipReload()") Sip reload

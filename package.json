@@ -24,7 +24,7 @@
     "file-exists": "^1.0.0",
     "gulp-token-replace": "^1.0.2",
     "jade": "^1.11.0",
-    "joi": "^7.2.3",
+    "joi": "^7.3.0",
     "mongoose": "^4.1.11",
     "mongoose-router": "0.0.2"
   },
